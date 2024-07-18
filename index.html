@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Jay Joshi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="images/site.webmanifest">
+    <style>
+        :root {
+            --primary-color: #D9BF77;
+            --secondary-color: #B7995D;
+            --accent-color: #8C6345;
+            --text-color: #4A4238;
+            --bg-color: #F8F5E4;
+            --card-bg: #EFE9DC;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Vollkorn', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+            font-family: 'Playfair Display', serif;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFF;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: #FFF;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #FFF;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: var(--bg-color);
+            color: var(--text-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 2s ease-in-out;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 24px;
+            margin-bottom: 30px;
+            animation: fadeInUp 2s ease 0.5s forwards;
+            opacity: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent-color);
+            color: #FFF;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: var(--transition);
+            animation: fadeInUp 2s ease 1s forwards;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: var(--text-color);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 15px;
+        }
+
+        .card-info h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .card-info p {
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-item {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-item i {
+            font-size: 36px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .skill-item h3 {
+            font-size: 16px;
+            color: var(--text-color);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .about-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            font-size: 16px;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 150px;
+        }
+
+        .submit-button {
+            background-color: var(--primary-color);
+            color: #FFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: #FFF;
+            padding: 20px 0;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+        }
+
+        footer a {
+            color: #FFF;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .social-media {
+            margin-top: 10px;
+        }
+
+        .social-media a {
+            color: #FFF;
+            margin: 0 10px;
+            font-size: 24px;
+            transition: var(--transition);
+        }
+
+        .social-media a:hover {
+            color: var(--accent-color);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: #FFF;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .map-container {
+            height: 150px;
+            margin-top: 10px;
+        }
+
+        #alertContainer {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 500px;
+            text-align: center;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">Jay Joshi</a>
+                <ul class="nav-links">
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#hackathons">Hackathons</a></li>
+                    <li><a href="#certificates">Certificates</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <h1>Jay Joshi</h1>
+            <p>Web Developer | Designer | Creator</p>
+            <a href="#projects" class="cta-button">View My Work</a>
+        </div>
+    </section>
+
+    <section id="projects" class="section projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="images/project1.png" alt="Project 1">
+                    <div class="card-info">
+                        <h3>Student Management System</h3>
+                        <p>A Student Management System is a software solution designed to efficiently manage student-related information and processes in educational institutions. It typically includes features for student enrollment, grade management, and reporting. This system streamlines administrative tasks, enhances communication, and ensures data accuracy, ultimately improving the overall management of students' academic journeys.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="project2.jpg" alt="Project 2">
+                    <div class="card-info">
+                        <h3>Project 2</h3>
+                        <p>Description of Project 2</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="project3.jpg" alt="Project 3">
+                    <div class="card-info">
+                        <h3>Project 3</h3>
+                        <p>Description of Project 3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hackathons" class="section hackathons">
+        <div class="container">
+            <h2 class="section-title">Hackathons</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="images/RKU.jpg" alt="Hackathon 1">
+                    <div class="card-info">
+                        <h3>SSIP - Reginal Round ( SELECTED )</h3>
+                        <p>Date: November 11, 2023</p>
+                        <p>Location: R.K University, Rajkot</p>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.9912315281176!2d70.89784917536734!3d22.24041147972966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959b4a660019ee9%3A0x3d6254f36ed0e794!2sRK%20University%20Main%20Campus!5e0!3m2!1sen!2sin!4v1721281415055!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100939.98555098464!2d-122.50764017940796!3d37.75781499856875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1652309309296!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/PDEU.jpg" alt="Hackathon 2">
+                    <div class="card-info">
+                        <h3>SSIP - Finale ( PARTICIPATE )</h3>
+                        <p>Date: November 25, 2023</p>
+                        <p>Location: PDEU, Gandhinagar</p>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3668.4362652372533!2d72.66315307539378!3d23.154272279081738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e802cfe647e33%3A0x983a11b5cb484f15!2sPandit%20Deendayal%20Energy%20University-%20PDEU%20(Formerly%20PDPU)!5e0!3m2!1sen!2sin!4v1721282631155!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.1583091352!2d-74.11976373946229!3d40.69766374859258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1652309366834!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/Nirmaa.jpg" alt="Hackathon 2">
+                    <div class="card-info">
+                        <h3>HackNUThon ( PARTICIPATE )</h3>
+                        <p>Date: April 20 - 21, 2024</p>
+                        <p>Location: Nirma University, Ahmdabad</p>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3669.1366694273506!2d72.5428675!3d23.1286792!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e832f45125167%3A0x876cb1cb23c25bdb!2sNirma%20University!5e0!3m2!1sen!2sin!4v1721283476660!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.1583091352!2d-74.11976373946229!3d40.69766374859258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1652309366834!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- <h2 class="section-title">Hackathons</h2> -->
+            <div class="card-grid">
+                <div class="card">
+                    <img src="images/B.H.Gardii.jpeg" alt="Hackathon 1">
+                    <div class="card-info">
+                        <h3>Hackathon 2024 ( WINNER )</h3>
+                        <p>Date: March 26 - 27, 2024</p>
+                        <p>Location: B.H. Gardi College, Rajkot</p>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3693.630482401107!2d70.57974107536658!3d22.216144979747213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959d2e4f8177cf1%3A0x77f7a96b7c2a3cc!2sB%20H%20Gardi%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1721288287586!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.9912315281176!2d70.89784917536734!3d22.24041147972966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959b4a660019ee9%3A0x3d6254f36ed0e794!2sRK%20University%20Main%20Campus!5e0!3m2!1sen!2sin!4v1721281415055!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100939.98555098464!2d-122.50764017940796!3d37.75781499856875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1652309309296!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <!-- <img src="images/B.H.Gardii.jpeg" alt="Hackathon 1">
+                    <div class="card-info">
+                        <h3>Hackathon 2024</h3>
+                        <p>Date: march 26 - 27, 2024</p>
+                        <p>Location: B.H. Gardi College, Rajkot</p>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3693.630482401107!2d70.57974107536658!3d22.216144979747213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959d2e4f8177cf1%3A0x77f7a96b7c2a3cc!2sB%20H%20Gardi%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1721288287586!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div> -->
+                    
+                </div>
+                <div class="card">
+                    <!-- <img src="images/B.H.Gardii.jpeg" alt="Hackathon 1">
+                    <div class="card-info">
+                        <h3>Hackathon 2024</h3>
+                        <p>Date: march 26 - 27, 2024</p>
+                        <p>Location: B.H. Gardi College, Rajkot</p>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3693.630482401107!2d70.57974107536658!3d22.216144979747213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959d2e4f8177cf1%3A0x77f7a96b7c2a3cc!2sB%20H%20Gardi%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1721288287586!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div> -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates" class="section certificates">
+        <div class="container">
+            <h2 class="section-title">Certificates</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="images/SSIP - Regional Round - RKU.jpg" alt="Certificate 1">
+                    <div class="card-info">
+                        <h3>SSIP - Reginal Round ( PARTICIPATE )</h3>
+                        <p>Issued by: R.K. University</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/SSIP - Finale - PDEU.jpg" alt="Certificate 2">
+                    <div class="card-info">
+                        <h3>SSIP - Finale Round ( PARTICIPATE )</h3>
+                        <p>Issued by: PDEU</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/Nirma.jpg" alt="Certificate 2">
+                    <div class="card-info">
+                        <h3>HackNUThon ( PARTICIPATE )</h3>
+                        <p>Issued by: Nirma University</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- <h2 class="section-title">Certificates</h2> -->
+            <div class="card-grid">
+                <div class="card">
+                    <img src="images/B.H.Gardi.jpeg" alt="Certificate 1">
+                    <div class="card-info">
+                        <h3>Hackathon 2024 ( WINNER )</h3>
+                        <p>Issued by: B.H. Gardi College</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <!-- <img src="images/SSIP - Finale - PDEU.jpg" alt="Certificate 2">
+                    <div class="card-info">
+                        <h3>SSIP - Finale Round</h3>
+                        <p>Issued by: PDEU</p>
+                    </div> -->
+                </div>
+                <div class="card">
+                    <!-- <img src="images/Nirma.jpg" alt="Certificate 2">
+                    <div class="card-info">
+                        <h3>HackNUThon</h3>
+                        <p>Issued by: Nirma University</p>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hello! I'm Jay Joshi, a passionate web developer and designer with a keen eye for detail and a love for creating beautiful, functional websites. With several years of experience in the field, I've worked on a variety of projects that have honed my skills in both front-end and back-end development.</p>
+                    <p>When I'm not coding, you can find me exploring new technologies, participating in hackathons, or working on personal projects to further expand my skillset.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/admin2.png" alt="Jay Joshi">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section skills">
+        <div class="container">
+            <h2 class="section-title">My Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fab fa-html5"></i>
+                    <h3>HTML5</h3>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-css3-alt"></i>
+                    <h3>CSS3</h3>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-js"></i>
+                    <h3>JavaScript</h3>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-c"></i>
+                    <h3>C Language</h3>
+                </div>
+                <!-- <div class="skill-item">
+                    <i class="fab fa-c"></i>
+                    <h3>C++</h3>
+                </div> -->
+                <div class="skill-item">
+                    <i class="fa-brands fa-android"></i>
+                    <h3>Android</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- <h2 class="section-title">My Skills</h2> -->
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fa-brands fa-php"></i>
+                    <h3>PHP</h3>
+                </div>
+                <div class="skill-item">
+                    <i class="fa-brands fa-python"></i>
+                    <h3>Python</h3>
+                </div>
+                <div class="skill-item">
+                    <i class="fa-solid fa-database"></i>
+                    <h3>MySQL</h3>
+                </div>
+                <div class="skill-item">
+                    <i class="fa-brands fa-java"></i>
+                    <h3>Java</h3>
+                </div>
+            </div>
+        </div>
+
+        
+    </section>
+
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Jay Joshi. All rights reserved.</p>
+            <div class="social-media">
+                <a href="https://www.linkedin.com/in/jay-joshi-539587276/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/jay._joshi._/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/jayjoshi2512"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    <div id="alertContainer"></div>
+
+    <script>
+        // Particle.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#D9BF77' },
+                shape: { type: 'circle', stroke: { width: 0, color: '#000000' }, polygon: { nb_sides: 5 } },
+                opacity: { value: 0.5, random: false, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+                size: { value: 3, random: true, anim: { enable: false, speed: 40, size_min: 0.1, sync: false } },
+                line_linked: { enable: true, distance: 150, color: '#B7995D', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
+            },
+            retina_detect: true
+        });
+
+        // Scroll reveal
+        window.addEventListener('scroll', revealSections);
+
+        function revealSections() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight * 0.75) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#contactForm').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'sendmail.php',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#alertContainer').html('<div class="alert alert-success alert-dismissible fade show">' + response.message + '</div>');
+                        $('#contactForm')[0].reset();
+                    } else {
+                        $('#alertContainer').html('<div class="alert alert-danger alert-dismissible fade show">' + response.message + '</div>');
+                    }
+                },
+                error: function() {
+                    $('#alertContainer').html('<div class="alert alert-danger">An error occurred. Please try again later.</div>');
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
